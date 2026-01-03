@@ -1,0 +1,43 @@
+{
+  "id": "matrix",
+  "version": "1.0.0",
+  "tilre": ">=1.0.0",
+  "name": "Matrix",
+  "description": "Digital rain effect inspired by The Matrix",
+  "author": {
+    "name": "til.re",
+    "url": "https://til.re"
+  },
+  "license": "MIT",
+  "type": "immersive",
+  "files": {
+    "js": "matrix.js",
+    "css": "matrix.css"
+  },
+  "defaults": {
+    "matrixSpeed": 1,
+    "matrixDensity": 1,
+    "matrixColor": "00ff00"
+  },
+  "parameters": [
+    {
+      "name": "matrixSpeed",
+      "type": "number",
+      "default": 1,
+      "description": "Fall speed multiplier"
+    },
+    {
+      "name": "matrixDensity",
+      "type": "number",
+      "default": 1,
+      "description": "Character density multiplier"
+    },
+    {
+      "name": "matrixColor",
+      "type": "string",
+      "default": "00ff00",
+      "description": "Character color (hex)"
+    }
+  ],
+  "keywords": ["matrix", "rain", "digital", "hacker"]
+}

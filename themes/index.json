@@ -1,0 +1,47 @@
+{
+  "version": "1.0.0",
+  "themes": [
+    {
+      "id": "ring",
+      "name": "Progress Ring",
+      "description": "Circular progress ring with dynamic color",
+      "path": "ring",
+      "preview": "ring/preview.png"
+    },
+    {
+      "id": "zen",
+      "name": "Zen",
+      "description": "Minimalist breathing animation",
+      "path": "zen",
+      "preview": "zen/preview.png"
+    },
+    {
+      "id": "neon",
+      "name": "Neon",
+      "description": "Cyberpunk neon glow effect",
+      "path": "neon",
+      "preview": "neon/preview.png"
+    },
+    {
+      "id": "pixel",
+      "name": "Pixel",
+      "description": "8-bit retro pixel style",
+      "path": "pixel",
+      "preview": "pixel/preview.png"
+    },
+    {
+      "id": "flip",
+      "name": "Flip Clock",
+      "description": "Classic flip clock animation",
+      "path": "flip",
+      "preview": "flip/preview.png"
+    },
+    {
+      "id": "matrix",
+      "name": "Matrix",
+      "description": "Digital rain effect",
+      "path": "matrix",
+      "preview": "matrix/preview.png"
+    }
+  ]
+}

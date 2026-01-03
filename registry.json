@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "name": "til.re Official Plugins",
+  "description": "Official themes and shortcuts for til.re",
+  "repository": "https://github.com/til-re/plugins",
+  "themes": {
+    "index": "themes/index.json",
+    "count": 6
+  },
+  "shortcuts": {
+    "index": "shortcuts/index.json",
+    "count": 19
+  }
+}

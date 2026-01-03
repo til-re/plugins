@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "packs": [
+    {
+      "id": "core",
+      "name": "Core Shortcuts",
+      "description": "Essential shortcuts for daily use",
+      "file": "core.json"
+    }
+  ]
+}

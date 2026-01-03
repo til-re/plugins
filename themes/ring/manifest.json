@@ -1,0 +1,50 @@
+{
+  "id": "ring",
+  "version": "1.0.0",
+  "tilre": ">=1.0.0",
+  "name": "Progress Ring",
+  "description": "SVG circular progress bar with dynamic color",
+  "author": {
+    "name": "til.re",
+    "url": "https://til.re"
+  },
+  "license": "MIT",
+  "type": "functional",
+  "files": {
+    "js": "ring.js",
+    "css": "ring.css"
+  },
+  "defaults": {
+    "ringWidth": 8,
+    "ringColor": null,
+    "dynamicColor": false,
+    "tick": false
+  },
+  "parameters": [
+    {
+      "name": "ringWidth",
+      "type": "number",
+      "default": 8,
+      "description": "Width of the progress ring"
+    },
+    {
+      "name": "ringColor",
+      "type": "string",
+      "default": null,
+      "description": "Color of the progress ring (hex)"
+    },
+    {
+      "name": "dynamicColor",
+      "type": "boolean",
+      "default": false,
+      "description": "Enable dynamic color based on progress"
+    },
+    {
+      "name": "tick",
+      "type": "boolean",
+      "default": false,
+      "description": "Enable tick sound on each second"
+    }
+  ],
+  "keywords": ["progress", "ring", "circular", "svg"]
+}

@@ -1,0 +1,389 @@
+/**
+ * Flip Clock Theme
+ * CSS 3D flip effect
+ */
+
+.flip-theme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #ffffff;
+}
+
+/* Clock container */
+.flip-clock {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Time unit group */
+.flip-unit-group {
+  display: flex;
+  gap: 5px;
+}
+
+/* Separator */
+.flip-separator {
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.5);
+  align-self: center;
+}
+
+/* Single flip card */
+.flip-card {
+  --card-width: clamp(50px, 12vw, 100px);
+  --card-height: clamp(70px, 16vw, 140px);
+  --font-size: clamp(2.5rem, 8vw, 5rem);
+
+  position: relative;
+  width: var(--card-width);
+  height: var(--card-height);
+  perspective: 400px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: var(--font-size);
+  font-weight: 600;
+}
+
+/* Card top/bottom shared styles */
+.flip-card-top,
+.flip-card-bottom,
+.flip-card-flip {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  background: linear-gradient(180deg, #2a2a4a 0%, #1a1a3a 100%);
+  color: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Top half - static background layer */
+.flip-card-top {
+  top: 0;
+  z-index: 1;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid #0a0a1a;
+}
+
+/* Bottom half - static background layer */
+.flip-card-bottom {
+  z-index: 1;
+}
+
+.flip-card-top::after,
+.flip-card-bottom::after,
+.flip-card-flip::after {
+  content: attr(data-value);
+  position: absolute;
+  width: 100%;
+  height: 200%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+}
+
+.flip-card-top::after {
+  top: 0;
+}
+
+/* Bottom half styles */
+.flip-card-bottom {
+  bottom: 0;
+  border-radius: 0 0 8px 8px;
+}
+
+.flip-card-bottom::after {
+  bottom: 0;
+}
+
+/* Flip layer - above static layer */
+.flip-card-flip {
+  z-index: 2;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Flip top half */
+.flip-card-flip-top {
+  top: 0;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid #0a0a1a;
+  transform-origin: bottom center;
+}
+
+.flip-card-flip-top::after {
+  top: 0;
+}
+
+/* Flip bottom half - initially hidden */
+.flip-card-flip-bottom {
+  bottom: 0;
+  border-radius: 0 0 8px 8px;
+  transform-origin: top center;
+  transform: rotateX(90deg);
+}
+
+.flip-card-flip-bottom::after {
+  bottom: 0;
+}
+
+/* Flip animation */
+.flip-card.flipping .flip-card-flip-top {
+  animation: flip-top 0.3s ease-in forwards;
+}
+
+.flip-card.flipping .flip-card-flip-bottom {
+  animation: flip-bottom 0.3s ease-out 0.3s forwards;
+}
+
+@keyframes flip-top {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(-90deg); }
+}
+
+@keyframes flip-bottom {
+  0% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+/* Title */
+.flip-title {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.1em;
+}
+
+/* Message */
+.flip-message {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* State styles */
+.flip-theme.state-rest .flip-card {
+  background: #0f2318;
+}
+
+.flip-theme.state-rest .flip-card-top,
+.flip-theme.state-rest .flip-card-bottom,
+.flip-theme.state-rest .flip-card-flip {
+  background: linear-gradient(180deg, #1a4a2a 0%, #0f3a1f 100%);
+}
+
+.flip-theme.state-finished .flip-card {
+  background: #231f0f;
+}
+
+.flip-theme.state-finished .flip-card-top,
+.flip-theme.state-finished .flip-card-bottom,
+.flip-theme.state-finished .flip-card-flip {
+  background: linear-gradient(180deg, #4a3a1a 0%, #3a2a0f 100%);
+}
+
+.flip-theme.state-paused .flip-clock {
+  animation: flip-blink 1s ease-in-out infinite;
+}
+
+@keyframes flip-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ==================== Control Button Bar ==================== */
+
+.flip-controls {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 100;
+  padding: 12px 20px;
+  background: linear-gradient(180deg, #2a2a4a 0%, #1a1a3a 100%);
+  border-radius: 10px;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Visible state */
+.flip-controls.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Flip card style button */
+.flip-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 52px;
+  padding: 0;
+  background: linear-gradient(180deg, #3a3a5a 0%, #2a2a4a 50%, #1a1a3a 100%);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Button center divider line */
+.flip-btn::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background: #0a0a1a;
+  transform: translateY(-50%);
+}
+
+/* Button icon */
+.flip-btn-face {
+  font-size: 18px;
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
+}
+
+/* Fullscreen icon - four corner layout (CSS drawn) */
+.flip-fullscreen-icon {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  width: 14px;
+  height: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.flip-fullscreen-icon span {
+  width: 5px;
+  height: 5px;
+  border: 1.5px solid #ffffff;
+}
+
+.flip-fullscreen-icon span:nth-child(1) { border-right: none; border-bottom: none; }
+.flip-fullscreen-icon span:nth-child(2) { border-left: none; border-bottom: none; }
+.flip-fullscreen-icon span:nth-child(3) { border-right: none; border-top: none; }
+.flip-fullscreen-icon span:nth-child(4) { border-left: none; border-top: none; }
+
+.flip-fullscreen-icon.shrink span:nth-child(1) { border: 1.5px solid #ffffff; border-left: none; border-top: none; }
+.flip-fullscreen-icon.shrink span:nth-child(2) { border: 1.5px solid #ffffff; border-right: none; border-top: none; }
+.flip-fullscreen-icon.shrink span:nth-child(3) { border: 1.5px solid #ffffff; border-left: none; border-bottom: none; }
+.flip-fullscreen-icon.shrink span:nth-child(4) { border: 1.5px solid #ffffff; border-right: none; border-bottom: none; }
+
+/* Button hover */
+.flip-btn:hover {
+  background: linear-gradient(180deg, #4a4a6a 0%, #3a3a5a 50%, #2a2a4a 100%);
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Button pressed */
+.flip-btn:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Button focus */
+.flip-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Paused state */
+.flip-theme.state-paused .flip-btn[data-action="pause"] {
+  background: linear-gradient(180deg, #4a5a7a 0%, #3a4a6a 50%, #2a3a5a 100%);
+}
+
+.flip-theme.state-paused .flip-btn[data-action="pause"] .flip-btn-face {
+  animation: flip-btn-blink 1s ease-in-out infinite;
+}
+
+@keyframes flip-btn-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Muted state */
+.flip-theme.state-muted .flip-btn[data-action="mute"] {
+  opacity: 0.5;
+}
+
+.flip-theme.state-muted .flip-btn[data-action="mute"]:hover {
+  opacity: 1;
+}
+
+/* ==================== Responsive ==================== */
+
+@media (max-width: 480px) {
+  .flip-clock {
+    gap: 5px;
+  }
+
+  .flip-unit-group {
+    gap: 3px;
+  }
+
+  .flip-separator {
+    margin: 0 3px;
+  }
+
+  .flip-controls {
+    bottom: 20px;
+    padding: 10px 16px;
+    gap: 10px;
+  }
+
+  .flip-btn {
+    width: 38px;
+    height: 46px;
+  }
+
+  .flip-btn-face {
+    font-size: 16px;
+  }
+}
+
+/* Landscape small screen */
+@media (max-height: 400px) and (orientation: landscape) {
+  .flip-controls {
+    bottom: auto;
+    left: auto;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    padding: 16px 10px;
+  }
+}

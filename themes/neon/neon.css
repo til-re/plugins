@@ -1,0 +1,375 @@
+/**
+ * Neon Cyberpunk Theme
+ * Glow effects, flickering animation
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+.neon-theme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #0a0a0f;
+  color: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Grid background */
+.neon-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(255, 0, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 0, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  perspective: 500px;
+  pointer-events: none;
+}
+
+.neon-grid::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 0, 255, 0.05) 50%,
+    rgba(0, 255, 255, 0.1)
+  );
+}
+
+/* Time display */
+.neon-time {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(3rem, 12vw, 8rem);
+  font-weight: 700;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px var(--neon-color-1, #ff00ff),
+    0 0 40px var(--neon-color-1, #ff00ff),
+    0 0 80px var(--neon-color-1, #ff00ff);
+  animation: neon-glow 2s ease-in-out infinite alternate;
+  position: relative;
+  z-index: 1;
+}
+
+/* Glow animation */
+@keyframes neon-glow {
+  from {
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px var(--neon-color-1, #ff00ff),
+      0 0 40px var(--neon-color-1, #ff00ff),
+      0 0 80px var(--neon-color-1, #ff00ff);
+  }
+  to {
+    text-shadow:
+      0 0 10px #fff,
+      0 0 20px var(--neon-color-2, #00ffff),
+      0 0 30px var(--neon-color-2, #00ffff),
+      0 0 50px var(--neon-color-2, #00ffff),
+      0 0 100px var(--neon-color-2, #00ffff);
+  }
+}
+
+/* Flicker effect */
+.neon-theme.flicker .neon-time {
+  animation: neon-flicker 0.15s ease-in-out infinite alternate,
+             neon-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes neon-flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 1;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+  }
+}
+
+/* Separator */
+.neon-separator {
+  animation: neon-separator-blink 1s ease-in-out infinite;
+}
+
+@keyframes neon-separator-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}
+
+/* Title */
+.neon-title {
+  margin-top: 2rem;
+  font-family: 'Orbitron', monospace;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--neon-color-1, #ff00ff);
+  text-shadow:
+    0 0 5px var(--neon-color-1, #ff00ff),
+    0 0 10px var(--neon-color-1, #ff00ff);
+  position: relative;
+  z-index: 1;
+}
+
+/* Message */
+.neon-message {
+  margin-top: 1rem;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  position: relative;
+  z-index: 1;
+}
+
+/* Ripple effect */
+.neon-ripple {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--neon-color-1, #ff00ff);
+  box-shadow:
+    0 0 10px var(--neon-color-1, #ff00ff),
+    0 0 20px var(--neon-color-1, #ff00ff),
+    inset 0 0 10px var(--neon-color-1, #ff00ff);
+  transform: scale(0);
+  animation: neon-ripple-anim 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes neon-ripple-anim {
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+/* Scanline */
+.neon-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--neon-color-1, #ff00ff),
+    transparent
+  );
+  animation: neon-scan 4s linear infinite;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+@keyframes neon-scan {
+  0% { top: -5%; }
+  100% { top: 105%; }
+}
+
+/* State styles */
+.neon-theme.state-rest {
+  --neon-color-1: #00ff88;
+  --neon-color-2: #00ffff;
+}
+
+.neon-theme.state-finished {
+  --neon-color-1: #ffff00;
+  --neon-color-2: #ff8800;
+}
+
+.neon-theme.state-paused .neon-time {
+  animation: neon-paused 1.5s ease-in-out infinite;
+}
+
+@keyframes neon-paused {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+/* ==================== Control Button Bar ==================== */
+
+.neon-controls {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 100;
+  padding: 16px 28px;
+  background: rgba(10, 10, 15, 0.85);
+  border: 1px solid var(--neon-color-1, #ff00ff);
+  box-shadow:
+    0 0 10px var(--neon-color-1, #ff00ff),
+    0 0 20px rgba(255, 0, 255, 0.3),
+    inset 0 0 20px rgba(255, 0, 255, 0.05);
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Visible state */
+.neon-controls.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Neon button */
+.neon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: transparent;
+  border: 2px solid var(--neon-color-2, #00ffff);
+  color: var(--neon-color-2, #00ffff);
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  text-shadow: 0 0 5px var(--neon-color-2, #00ffff);
+  box-shadow:
+    0 0 5px var(--neon-color-2, #00ffff),
+    inset 0 0 5px rgba(0, 255, 255, 0.1);
+}
+
+/* Fullscreen icon - four corner layout (CSS drawn) */
+.neon-fullscreen-icon {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  width: 16px;
+  height: 16px;
+}
+
+.neon-fullscreen-icon span {
+  width: 6px;
+  height: 6px;
+  border: 1.5px solid currentColor;
+}
+
+.neon-fullscreen-icon span:nth-child(1) { border-right: none; border-bottom: none; }
+.neon-fullscreen-icon span:nth-child(2) { border-left: none; border-bottom: none; }
+.neon-fullscreen-icon span:nth-child(3) { border-right: none; border-top: none; }
+.neon-fullscreen-icon span:nth-child(4) { border-left: none; border-top: none; }
+
+.neon-fullscreen-icon.shrink span:nth-child(1) { border: 1.5px solid currentColor; border-left: none; border-top: none; }
+.neon-fullscreen-icon.shrink span:nth-child(2) { border: 1.5px solid currentColor; border-right: none; border-top: none; }
+.neon-fullscreen-icon.shrink span:nth-child(3) { border: 1.5px solid currentColor; border-left: none; border-bottom: none; }
+.neon-fullscreen-icon.shrink span:nth-child(4) { border: 1.5px solid currentColor; border-right: none; border-bottom: none; }
+
+/* Button hover - enhanced glow */
+.neon-btn:hover {
+  background: rgba(0, 255, 255, 0.1);
+  border-color: #fff;
+  color: #fff;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px var(--neon-color-2, #00ffff),
+    0 0 20px var(--neon-color-2, #00ffff);
+  box-shadow:
+    0 0 10px var(--neon-color-2, #00ffff),
+    0 0 20px var(--neon-color-2, #00ffff),
+    inset 0 0 10px rgba(0, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* Button pressed */
+.neon-btn:active {
+  transform: scale(0.95);
+}
+
+/* Button focus */
+.neon-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* Paused state button flicker */
+.neon-theme.state-paused .neon-btn[data-action="pause"] {
+  animation: neon-btn-pulse 1.5s ease-in-out infinite;
+  border-color: var(--neon-color-1, #ff00ff);
+  color: var(--neon-color-1, #ff00ff);
+  text-shadow: 0 0 5px var(--neon-color-1, #ff00ff);
+  box-shadow:
+    0 0 10px var(--neon-color-1, #ff00ff),
+    inset 0 0 5px rgba(255, 0, 255, 0.2);
+}
+
+@keyframes neon-btn-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow:
+      0 0 10px var(--neon-color-1, #ff00ff),
+      inset 0 0 5px rgba(255, 0, 255, 0.2);
+  }
+  50% {
+    opacity: 0.5;
+    box-shadow:
+      0 0 5px var(--neon-color-1, #ff00ff),
+      inset 0 0 2px rgba(255, 0, 255, 0.1);
+  }
+}
+
+/* Muted state */
+.neon-theme.state-muted .neon-btn[data-action="mute"] {
+  opacity: 0.4;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.neon-theme.state-muted .neon-btn[data-action="mute"]:hover {
+  opacity: 1;
+}
+
+/* ==================== Responsive ==================== */
+
+@media (max-width: 480px) {
+  .neon-title {
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+  }
+
+  .neon-grid {
+    background-size: 30px 30px;
+  }
+
+  .neon-controls {
+    bottom: 20px;
+    padding: 12px 20px;
+    gap: 14px;
+  }
+
+  .neon-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+}
+
+/* Landscape small screen */
+@media (max-height: 400px) and (orientation: landscape) {
+  .neon-controls {
+    bottom: auto;
+    left: auto;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    padding: 16px 12px;
+  }
+}

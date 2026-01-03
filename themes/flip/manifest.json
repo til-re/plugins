@@ -1,0 +1,29 @@
+{
+  "id": "flip",
+  "version": "1.0.0",
+  "tilre": ">=1.0.0",
+  "name": "Flip Clock",
+  "description": "Classic mechanical flip clock animation",
+  "author": {
+    "name": "til.re",
+    "url": "https://til.re"
+  },
+  "license": "MIT",
+  "type": "functional",
+  "files": {
+    "js": "flip.js",
+    "css": "flip.css"
+  },
+  "defaults": {
+    "flipSpeed": 600
+  },
+  "parameters": [
+    {
+      "name": "flipSpeed",
+      "type": "number",
+      "default": 600,
+      "description": "Flip animation duration in milliseconds"
+    }
+  ],
+  "keywords": ["flip", "clock", "mechanical", "animation"]
+}

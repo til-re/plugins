@@ -1,0 +1,43 @@
+{
+  "id": "zen",
+  "version": "1.0.0",
+  "tilre": ">=1.0.0",
+  "name": "Zen",
+  "description": "Minimalist breathing animation with ripple effects",
+  "author": {
+    "name": "til.re",
+    "url": "https://til.re"
+  },
+  "license": "MIT",
+  "type": "immersive",
+  "files": {
+    "js": "zen.js",
+    "css": "zen.css"
+  },
+  "defaults": {
+    "breathRate": 4000,
+    "minimal": false,
+    "breathSound": false
+  },
+  "parameters": [
+    {
+      "name": "breathRate",
+      "type": "number",
+      "default": 4000,
+      "description": "Breathing animation cycle in milliseconds"
+    },
+    {
+      "name": "minimal",
+      "type": "boolean",
+      "default": false,
+      "description": "Hide time display"
+    },
+    {
+      "name": "breathSound",
+      "type": "boolean",
+      "default": false,
+      "description": "Enable breathing guide sounds"
+    }
+  ],
+  "keywords": ["zen", "minimal", "breathing", "meditation"]
+}

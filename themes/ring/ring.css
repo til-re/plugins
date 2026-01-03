@@ -1,0 +1,259 @@
+/**
+ * Ring Progress Circle Theme
+ */
+
+.ring-theme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--ring-bg, #0a0a1a);
+  color: var(--ring-color, #ffffff);
+  transition: background-color 0.3s ease;
+}
+
+/* SVG container */
+.ring-container {
+  position: relative;
+  width: min(80vw, 400px);
+  height: min(80vw, 400px);
+}
+
+.ring-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+/* Background ring */
+.ring-bg-circle {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: var(--ring-width, 8);
+}
+
+/* Progress ring */
+.ring-progress-circle {
+  fill: none;
+  stroke: var(--ring-progress-color, #4a9eff);
+  stroke-width: var(--ring-width, 8);
+  stroke-linecap: round;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.3s ease, stroke 0.5s ease;
+}
+
+/* Center time display */
+.ring-time {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+/* Title */
+.ring-title {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  font-weight: 300;
+  opacity: 0.8;
+  text-align: center;
+}
+
+/* Message */
+.ring-message {
+  margin-top: 1rem;
+  font-size: 1rem;
+  opacity: 0.6;
+  text-align: center;
+}
+
+/* State styles */
+.ring-theme.state-rest .ring-progress-circle {
+  stroke: #4ade80;
+}
+
+.ring-theme.state-finished .ring-progress-circle {
+  stroke: #fbbf24;
+}
+
+.ring-theme.state-paused .ring-time {
+  animation: ring-blink 1s ease-in-out infinite;
+}
+
+@keyframes ring-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Click ripple effect */
+.ring-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0);
+  animation: ring-ripple-anim 0.6s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes ring-ripple-anim {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ==================== Control Button Bar ==================== */
+
+.ring-controls {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+  z-index: 100;
+  padding: 12px 20px;
+  background: rgba(10, 10, 26, 0.8);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Visible state */
+.ring-controls.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Circular button */
+.ring-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Button icon */
+.ring-btn-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Fullscreen icon - four corner layout (CSS drawn) */
+.ring-fullscreen-icon {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  width: 14px;
+  height: 14px;
+}
+
+.ring-fullscreen-icon span {
+  width: 5px;
+  height: 5px;
+  border: 1.5px solid currentColor;
+}
+
+.ring-fullscreen-icon span:nth-child(1) { border-right: none; border-bottom: none; }
+.ring-fullscreen-icon span:nth-child(2) { border-left: none; border-bottom: none; }
+.ring-fullscreen-icon span:nth-child(3) { border-right: none; border-top: none; }
+.ring-fullscreen-icon span:nth-child(4) { border-left: none; border-top: none; }
+
+.ring-fullscreen-icon.shrink span:nth-child(1) { border: 1.5px solid currentColor; border-left: none; border-top: none; }
+.ring-fullscreen-icon.shrink span:nth-child(2) { border: 1.5px solid currentColor; border-right: none; border-top: none; }
+.ring-fullscreen-icon.shrink span:nth-child(3) { border: 1.5px solid currentColor; border-left: none; border-bottom: none; }
+.ring-fullscreen-icon.shrink span:nth-child(4) { border: 1.5px solid currentColor; border-right: none; border-bottom: none; }
+
+/* Button hover */
+.ring-btn:hover {
+  background: rgba(74, 158, 255, 0.2);
+  border-color: var(--ring-progress-color, #4a9eff);
+  transform: scale(1.1);
+}
+
+/* Button pressed */
+.ring-btn:active {
+  transform: scale(0.95);
+}
+
+/* Button focus */
+.ring-btn:focus-visible {
+  outline: 2px solid var(--ring-progress-color, #4a9eff);
+  outline-offset: 2px;
+}
+
+/* Paused state */
+.ring-theme.state-paused .ring-btn[data-action="pause"] {
+  background: rgba(74, 158, 255, 0.3);
+  border-color: var(--ring-progress-color, #4a9eff);
+}
+
+/* Muted state */
+.ring-theme.state-muted .ring-btn[data-action="mute"] {
+  opacity: 0.5;
+}
+
+.ring-theme.state-muted .ring-btn[data-action="mute"]:hover {
+  opacity: 1;
+}
+
+/* ==================== Responsive ==================== */
+
+@media (max-width: 480px) {
+  .ring-container {
+    width: 70vw;
+    height: 70vw;
+  }
+
+  .ring-title {
+    font-size: 1rem;
+  }
+
+  .ring-controls {
+    bottom: 20px;
+    padding: 10px 16px;
+    gap: 12px;
+  }
+
+  .ring-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .ring-btn-icon {
+    font-size: 16px;
+  }
+}
+
+/* Landscape small screen */
+@media (max-height: 400px) and (orientation: landscape) {
+  .ring-controls {
+    bottom: auto;
+    left: auto;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    border-radius: 25px;
+  }
+}

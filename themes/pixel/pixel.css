@@ -1,0 +1,364 @@
+/**
+ * Pixel Retro Theme
+ * 8-bit style, retro game color palette
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.pixel-theme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--pixel-bg, #000000);
+  color: var(--pixel-color, #00ff00);
+  image-rendering: pixelated;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Scanlines */
+.pixel-scanlines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* CRT curved effect */
+.pixel-theme::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Time display */
+.pixel-time {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(1.5rem, 8vw, 4rem);
+  letter-spacing: 0.1em;
+  text-shadow:
+    4px 4px 0 var(--pixel-shadow, #003300),
+    -1px -1px 0 var(--pixel-shadow, #003300);
+  position: relative;
+  z-index: 2;
+}
+
+/* Title */
+.pixel-title {
+  margin-top: 2rem;
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(0.6rem, 2vw, 0.9rem);
+  color: var(--pixel-accent, #88ff88);
+  text-shadow: 2px 2px 0 var(--pixel-shadow, #003300);
+  position: relative;
+  z-index: 2;
+}
+
+/* Message */
+.pixel-message {
+  margin-top: 1rem;
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(0.5rem, 1.5vw, 0.7rem);
+  color: var(--pixel-accent, #88ff88);
+  opacity: 0.7;
+  position: relative;
+  z-index: 2;
+}
+
+/* Decorative border */
+.pixel-border {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  border: 4px solid var(--pixel-color, #00ff00);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pixel-border::before,
+.pixel-border::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 4px solid var(--pixel-color, #00ff00);
+}
+
+.pixel-border::before {
+  top: -12px;
+  left: -12px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.pixel-border::after {
+  bottom: -12px;
+  right: -12px;
+  border-left: none;
+  border-top: none;
+}
+
+/* Color palettes */
+
+/* GameBoy */
+.pixel-theme.palette-gameboy {
+  --pixel-bg: #9bbc0f;
+  --pixel-color: #0f380f;
+  --pixel-accent: #306230;
+  --pixel-shadow: #8bac0f;
+}
+
+/* NES */
+.pixel-theme.palette-nes {
+  --pixel-bg: #000000;
+  --pixel-color: #fcfcfc;
+  --pixel-accent: #f83800;
+  --pixel-shadow: #503000;
+}
+
+/* CGA */
+.pixel-theme.palette-cga {
+  --pixel-bg: #000000;
+  --pixel-color: #00ffff;
+  --pixel-accent: #ff00ff;
+  --pixel-shadow: #0000aa;
+}
+
+/* Commodore 64 */
+.pixel-theme.palette-c64 {
+  --pixel-bg: #40318d;
+  --pixel-color: #7869c4;
+  --pixel-accent: #ffffff;
+  --pixel-shadow: #352879;
+}
+
+/* State styles */
+.pixel-theme.state-rest {
+  --pixel-color: #00ff00;
+  --pixel-accent: #88ff88;
+}
+
+.pixel-theme.state-finished .pixel-time {
+  animation: pixel-blink 0.5s step-end infinite;
+}
+
+@keyframes pixel-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.pixel-theme.state-paused .pixel-time {
+  animation: pixel-pause-blink 1s step-end infinite;
+}
+
+@keyframes pixel-pause-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
+}
+
+/* ==================== Pixel Button Bar ==================== */
+
+.pixel-controls {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 20;
+  padding: 8px;
+  background: var(--pixel-bg, #000000);
+  border: 4px solid var(--pixel-color, #00ff00);
+  box-shadow: 4px 4px 0 var(--pixel-shadow, #003300);
+}
+
+/* Pixel style button */
+.pixel-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  padding: 8px 10px;
+  background: var(--pixel-bg, #000000);
+  border: 2px solid var(--pixel-color, #00ff00);
+  color: var(--pixel-color, #00ff00);
+  font-family: 'Press Start 2P', monospace;
+  cursor: pointer;
+  border-radius: 0;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: none;
+}
+
+/* Button icon */
+.pixel-btn-icon {
+  font-size: 14px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+/* Fullscreen icon - four corner layout (CSS drawn) */
+.pixel-fullscreen-icon {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  width: 12px;
+  height: 12px;
+  margin-bottom: 4px;
+}
+
+.pixel-fullscreen-icon span {
+  width: 4px;
+  height: 4px;
+  border: 1.5px solid currentColor;
+}
+
+.pixel-fullscreen-icon span:nth-child(1) { border-right: none; border-bottom: none; }
+.pixel-fullscreen-icon span:nth-child(2) { border-left: none; border-bottom: none; }
+.pixel-fullscreen-icon span:nth-child(3) { border-right: none; border-top: none; }
+.pixel-fullscreen-icon span:nth-child(4) { border-left: none; border-top: none; }
+
+.pixel-fullscreen-icon.shrink span:nth-child(1) { border: 1.5px solid currentColor; border-left: none; border-top: none; }
+.pixel-fullscreen-icon.shrink span:nth-child(2) { border: 1.5px solid currentColor; border-right: none; border-top: none; }
+.pixel-fullscreen-icon.shrink span:nth-child(3) { border: 1.5px solid currentColor; border-left: none; border-bottom: none; }
+.pixel-fullscreen-icon.shrink span:nth-child(4) { border: 1.5px solid currentColor; border-right: none; border-bottom: none; }
+
+/* Button label */
+.pixel-btn-label {
+  font-size: 6px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Button hover */
+.pixel-btn:hover {
+  background: var(--pixel-color, #00ff00);
+  color: var(--pixel-bg, #000000);
+  box-shadow: 0 0 8px var(--pixel-color, #00ff00);
+}
+
+/* Button pressed */
+.pixel-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* Button focus */
+.pixel-btn:focus-visible {
+  outline: 2px dashed var(--pixel-accent, #88ff88);
+  outline-offset: 2px;
+}
+
+/* Paused state - pause button blinks */
+.pixel-theme.state-paused .pixel-btn[data-action="pause"] {
+  animation: pixel-btn-blink 0.8s step-end infinite;
+}
+
+@keyframes pixel-btn-blink {
+  0%, 50% {
+    background: var(--pixel-color, #00ff00);
+    color: var(--pixel-bg, #000000);
+  }
+  51%, 100% {
+    background: var(--pixel-bg, #000000);
+    color: var(--pixel-color, #00ff00);
+  }
+}
+
+/* Muted state - mute button dims */
+.pixel-theme.state-muted .pixel-btn[data-action="mute"] {
+  opacity: 0.5;
+}
+
+.pixel-theme.state-muted .pixel-btn[data-action="mute"]:hover {
+  opacity: 1;
+}
+
+/* ==================== Responsive ==================== */
+
+@media (max-width: 480px) {
+  .pixel-border {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border-width: 2px;
+  }
+
+  .pixel-border::before,
+  .pixel-border::after {
+    width: 10px;
+    height: 10px;
+    border-width: 2px;
+  }
+
+  .pixel-border::before {
+    top: -6px;
+    left: -6px;
+  }
+
+  .pixel-border::after {
+    bottom: -6px;
+    right: -6px;
+  }
+
+  /* Mobile button bar */
+  .pixel-controls {
+    bottom: 20px;
+    gap: 4px;
+    padding: 6px;
+    border-width: 2px;
+  }
+
+  .pixel-btn {
+    min-width: 44px;
+    padding: 6px 8px;
+    border-width: 1px;
+  }
+
+  .pixel-btn-icon {
+    font-size: 12px;
+  }
+
+  .pixel-btn-label {
+    font-size: 5px;
+  }
+}
+
+/* Landscape small screen - button bar on right side vertically */
+@media (max-height: 400px) and (orientation: landscape) {
+  .pixel-controls {
+    position: fixed;
+    bottom: auto;
+    left: auto;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+  }
+}

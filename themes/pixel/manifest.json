@@ -1,0 +1,36 @@
+{
+  "id": "pixel",
+  "version": "1.0.0",
+  "tilre": ">=1.0.0",
+  "name": "Pixel",
+  "description": "8-bit retro pixel style with color palettes",
+  "author": {
+    "name": "til.re",
+    "url": "https://til.re"
+  },
+  "license": "MIT",
+  "type": "immersive",
+  "files": {
+    "js": "pixel.js",
+    "css": "pixel.css"
+  },
+  "defaults": {
+    "palette": "default",
+    "scanlines": true
+  },
+  "parameters": [
+    {
+      "name": "palette",
+      "type": "string",
+      "default": "default",
+      "description": "Color palette (default, gameboy, nes, cga, c64)"
+    },
+    {
+      "name": "scanlines",
+      "type": "boolean",
+      "default": true,
+      "description": "Show CRT scanlines effect"
+    }
+  ],
+  "keywords": ["pixel", "retro", "8bit", "gameboy"]
+}

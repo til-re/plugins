@@ -1,0 +1,36 @@
+{
+  "id": "neon",
+  "version": "1.0.0",
+  "tilre": ">=1.0.0",
+  "name": "Neon",
+  "description": "Cyberpunk neon glow effect with flicker animation",
+  "author": {
+    "name": "til.re",
+    "url": "https://til.re"
+  },
+  "license": "MIT",
+  "type": "immersive",
+  "files": {
+    "js": "neon.js",
+    "css": "neon.css"
+  },
+  "defaults": {
+    "neonColor": "ff00ff,00ffff",
+    "flicker": true
+  },
+  "parameters": [
+    {
+      "name": "neonColor",
+      "type": "string",
+      "default": "ff00ff,00ffff",
+      "description": "Comma-separated neon colors (hex)"
+    },
+    {
+      "name": "flicker",
+      "type": "boolean",
+      "default": true,
+      "description": "Enable flicker effect"
+    }
+  ],
+  "keywords": ["neon", "cyberpunk", "glow", "flicker"]
+}

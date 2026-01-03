@@ -1,0 +1,146 @@
+{
+  "id": "core",
+  "version": "1.0.0",
+  "tilre": ">=1.0.0",
+  "name": "Core Shortcuts",
+  "description": "Essential shortcuts for daily use",
+  "author": {
+    "name": "til.re",
+    "url": "https://til.re"
+  },
+  "license": "MIT",
+  "shortcuts": {
+    "pomodoro": {
+      "time": "25m",
+      "config": {
+        "loop": true,
+        "rest": "5m",
+        "title": "Focus",
+        "rest_title": "Break"
+      }
+    },
+    "pomodoro-long": {
+      "time": "25m",
+      "config": {
+        "loop": true,
+        "rest": "15m",
+        "title": "Focus",
+        "rest_title": "Long Break"
+      }
+    },
+    "pomodoro-short": {
+      "time": "15m",
+      "config": {
+        "loop": true,
+        "rest": "3m",
+        "title": "Quick Focus",
+        "rest_title": "Break"
+      }
+    },
+    "noodle": {
+      "time": "3m",
+      "config": {
+        "title": "Cooking...",
+        "timeup": "Ready to eat!"
+      }
+    },
+    "tea": {
+      "time": "5m",
+      "config": {
+        "title": "Brewing tea",
+        "timeup": "Ready to drink"
+      }
+    },
+    "coffee": {
+      "time": "4m",
+      "config": {
+        "title": "Cooling coffee",
+        "timeup": "Perfect temperature"
+      }
+    },
+    "meeting": {
+      "time": "1h",
+      "config": {
+        "title": "Meeting in progress"
+      }
+    },
+    "standup": {
+      "time": "15m",
+      "config": {
+        "title": "Standup",
+        "timeup": "Standup ended"
+      }
+    },
+    "weekend": {
+      "time": "dayofweek6",
+      "config": {
+        "title": "Until Weekend"
+      }
+    },
+    "midnight": {
+      "time": "hourofday0",
+      "config": {
+        "title": "Until Tomorrow"
+      }
+    },
+    "noon": {
+      "time": "hourofday12",
+      "config": {
+        "title": "Until Noon"
+      }
+    },
+    "offwork": {
+      "time": "hourofday17",
+      "config": {
+        "title": "Until Off Work"
+      }
+    },
+    "lunch": {
+      "time": "hourofday12",
+      "config": {
+        "title": "Until Lunch"
+      }
+    },
+    "hiit": {
+      "time": "30s",
+      "config": {
+        "loop": true,
+        "rest": "10s",
+        "title": "Work!",
+        "rest_title": "Rest",
+        "color": "ff4444"
+      }
+    },
+    "tabata": {
+      "time": "20s",
+      "config": {
+        "loop": true,
+        "rest": "10s",
+        "title": "GO!",
+        "rest_title": "REST",
+        "scale": 1.2
+      }
+    },
+    "plank": {
+      "time": "1m",
+      "config": {
+        "title": "Hold it!",
+        "timeup": "Great job!"
+      }
+    },
+    "reading": {
+      "time": "30m",
+      "config": {
+        "title": "Reading Time",
+        "timeup": "Rest your eyes"
+      }
+    },
+    "meditation": {
+      "time": "10m",
+      "config": {
+        "title": "Meditation",
+        "timeup": "How do you feel?"
+      }
+    }
+  }
+}

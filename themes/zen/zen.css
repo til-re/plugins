@@ -1,0 +1,305 @@
+/**
+ * Zen Minimalist Theme
+ * Breathing animation, ultra-simple design
+ */
+
+.zen-theme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    hsl(220, 20%, 8%) 0%,
+    hsl(220, 25%, 12%) 100%
+  );
+  color: rgba(255, 255, 255, 0.9);
+  transition: background 0.8s ease, color 0.8s ease;
+  overflow: hidden;
+}
+
+/* Time display */
+.zen-time {
+  font-family: 'SF Pro Display', -apple-system, system-ui, sans-serif;
+  font-size: clamp(4rem, 15vw, 12rem);
+  font-weight: 100;
+  letter-spacing: -0.03em;
+  animation: zen-breath var(--breath-rate, 4s) ease-in-out infinite;
+}
+
+/* Separator */
+.zen-separator {
+  opacity: 0.4;
+  margin: 0 0.05em;
+}
+
+/* Hide separator mode */
+.zen-theme.minimal .zen-separator {
+  display: none;
+}
+
+/* Breathing animation */
+@keyframes zen-breath {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 1;
+  }
+}
+
+/* Title */
+.zen-title {
+  margin-top: 3rem;
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  transition: opacity 0.5s ease;
+}
+
+/* Message */
+.zen-message {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 300;
+  opacity: 0.3;
+  transition: opacity 0.5s ease;
+}
+
+/* Decorative circles */
+.zen-circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.zen-circle-1 {
+  width: 60vmin;
+  height: 60vmin;
+  animation: zen-circle-pulse 8s ease-in-out infinite;
+}
+
+.zen-circle-2 {
+  width: 80vmin;
+  height: 80vmin;
+  animation: zen-circle-pulse 8s ease-in-out infinite 2s;
+}
+
+.zen-circle-3 {
+  width: 100vmin;
+  height: 100vmin;
+  animation: zen-circle-pulse 8s ease-in-out infinite 4s;
+}
+
+@keyframes zen-circle-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.1;
+    transform: scale(1.05);
+  }
+}
+
+/* State styles */
+.zen-theme.state-rest {
+  background: linear-gradient(
+    135deg,
+    hsl(140, 20%, 8%) 0%,
+    hsl(140, 25%, 12%) 100%
+  );
+}
+
+.zen-theme.state-finished {
+  background: linear-gradient(
+    135deg,
+    hsl(45, 20%, 8%) 0%,
+    hsl(45, 25%, 12%) 100%
+  );
+}
+
+.zen-theme.state-finished .zen-title,
+.zen-theme.state-finished .zen-message {
+  opacity: 0.8;
+}
+
+.zen-theme.state-paused .zen-time {
+  animation: zen-breath-paused 2s ease-in-out infinite;
+}
+
+@keyframes zen-breath-paused {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.4; }
+}
+
+/* Click ripple */
+.zen-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+  transform: scale(0);
+  animation: zen-ripple-anim 1.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes zen-ripple-anim {
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+/* ==================== Pause Overlay ==================== */
+
+.zen-pause-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100;
+  /* Hidden by default */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* Show when paused */
+.zen-theme.state-paused .zen-pause-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Play button */
+.zen-play-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  padding: 0;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  animation: zen-play-pulse 3s ease-in-out infinite;
+}
+
+.zen-play-btn svg {
+  width: 48px;
+  height: 48px;
+  margin-left: 6px; /* Visual centering adjustment */
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+}
+
+/* Play button breathing animation */
+@keyframes zen-play-pulse {
+  0%, 100% {
+    transform: scale(1);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow:
+      0 0 0 0 rgba(255, 255, 255, 0.1),
+      inset 0 0 30px rgba(255, 255, 255, 0.05);
+  }
+  50% {
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow:
+      0 0 40px 10px rgba(255, 255, 255, 0.1),
+      inset 0 0 40px rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* Play button hover */
+.zen-play-btn:hover {
+  transform: scale(1.1);
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 0 60px 15px rgba(255, 255, 255, 0.15),
+    inset 0 0 40px rgba(255, 255, 255, 0.1);
+  animation: none;
+}
+
+/* Play button pressed */
+.zen-play-btn:active {
+  transform: scale(0.95);
+  transition-duration: 0.1s;
+}
+
+/* Action hints */
+.zen-pause-hints {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-family: 'SF Pro Display', -apple-system, system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+  animation: zen-hints-fade 0.8s ease-out 0.3s both;
+}
+
+.zen-hint-separator {
+  opacity: 0.3;
+}
+
+@keyframes zen-hints-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== Responsive ==================== */
+
+@media (max-width: 480px) {
+  .zen-title {
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+  }
+
+  .zen-circle {
+    display: none;
+  }
+
+  .zen-play-btn {
+    width: 100px;
+    height: 100px;
+  }
+
+  .zen-play-btn svg {
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+  }
+
+  .zen-pause-hints {
+    font-size: 0.75rem;
+    gap: 0.6rem;
+  }
+}
