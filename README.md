@@ -70,31 +70,75 @@ plugins/
 ;(function(global) {
   const MyThemeRenderer = {
     id: 'mytheme',
-    handlesControls: true,
-    defaults: {},
+    handlesControls: true,  // Set true if theme handles click/keyboard interactions
+    defaults: {},           // Default config values for this theme
 
+    /**
+     * Initialize the theme
+     * @param {HTMLElement} container - DOM container to render into
+     * @param {Object} config - Merged config (defaults + URL params + shortcut config)
+     * @param {Object} actions - App actions: { togglePause, reset, fullscreen }
+     */
     init(container, config, actions) {
-      // Initialize theme
+      this._container = container;
+      this._config = config;
+      this._actions = actions;
+      // Create your DOM structure here
     },
 
+    /**
+     * Render the countdown display (called every tick, ~60fps)
+     * @param {number} remainingMs - Remaining time in milliseconds
+     * @param {Object} context - Current state context
+     * @param {string} context.state - 'active' | 'rest' | 'finished' | 'paused'
+     * @param {number} context.totalMs - Total duration in milliseconds
+     * @param {number} context.cycle - Current cycle number (if looping)
+     */
     render(remainingMs, context) {
-      // Render countdown
+      // Use global TimeFormatter to format time
+      // TimeFormatter.format() returns: { total, hours, minutes, seconds }
+      const formatted = global.TimeFormatter.format(remainingMs);
+
+      // formatted.total = "25:00" or "1:30:00" (auto includes hours if needed)
+      // formatted.hours = "01"
+      // formatted.minutes = "30"
+      // formatted.seconds = "00"
+
+      this._timeElement.textContent = formatted.total;
     },
 
-    setTitle(text) {},
-    setMessage(text) {},
-    setState(state) {},
+    setTitle(text) { /* Update title display */ },
+    setMessage(text) { /* Update message display */ },
+    setState(state) { /* Handle state changes: 'active', 'rest', 'finished', 'paused' */ },
 
+    /**
+     * Cleanup when theme is destroyed
+     */
     destroy() {
-      // Cleanup
+      // Remove event listeners, cancel animations, etc.
     }
   };
 
+  // Auto-register with ThemeManager
   if (global.ThemeManager) {
     global.ThemeManager.register(MyThemeRenderer);
   }
+
+  // Export for external loading
+  global.TilrePlugin_mytheme = MyThemeRenderer;
 })(window);
 ```
+
+### Global Utilities
+
+These utilities are available globally for themes to use:
+
+| Utility | Description |
+|---------|-------------|
+| `TimeFormatter.format(ms)` | Returns `{ total, hours, minutes, seconds }` |
+| `TimeFormatter.parseDuration(str)` | Parses "25m", "1.5h" etc. to seconds |
+| `Audio.play(type)` | Play sound: 'tick', 'complete', 'rest' |
+| `Audio.toggle()` | Toggle mute |
 
 ## Creating Shortcuts
 
